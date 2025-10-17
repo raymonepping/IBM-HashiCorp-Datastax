@@ -1,4 +1,4 @@
-# Modern Data Infrastructure: Business Impact of Astra DB + IaC
+# Modern Data Infrastructure with Astra DB through IaC
 
 ## Business Value: Astra vs Self-Managed Cassandra
 
