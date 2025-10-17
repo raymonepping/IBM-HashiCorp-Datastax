@@ -1,0 +1,24 @@
+# Copy this file to terraform.tfvars and fill in your values
+
+# Required variables
+user_email = "your-email@example.com"
+
+# Optional variables (uncomment and modify as needed)
+# database_name = "my-astra-db"
+# keyspace_name = "mykeyspace"
+# cloud_provider = "AWS"
+# region = "us-east-1"
+# enable_continuous_backup = false
+# enable_streaming = false
+# create_token = true
+# token_roles = ["database-user"]
+
+# Tags
+# tags = {
+#   Environment = "development"
+#   Project     = "terraform-astra"
+#   Owner       = "your-name"
+# }
+
+# Astra API Token (can also be set via environment variable ASTRA_API_TOKEN)
+# astra_token = "your-astra-api-token"
