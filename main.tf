@@ -8,9 +8,10 @@ provider "astra" {
 resource "astra_database" "main" {
   name           = var.database_name
   keyspace       = var.keyspace_name
-  cloud_provider = var.cloud_provider
+  cloud_provider = lower(var.cloud_provider)
   regions        = var.regions
 }
+
 
 # Output the database information
 output "database_id" {

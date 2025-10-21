@@ -1,16 +1,10 @@
-# Copy this file to terraform.tfvars and fill in your values
+# Example values for local testing. Do not commit real tokens.
+# Prefer ASTRA_API_TOKEN via env or HCP Variable Sets.
 
-# Required variables
-database_name = "my-astra-db"
-keyspace_name = "mykeyspace"
-cloud_provider = "AWS"
-regions = ["us-east-1"]
+database_name   = "intergallactic_db"
+keyspace_name   = "REPLACE_ME"
+cloud_provider  = "aws"
+regions         = ["eu-west-1"]
 
-# Optional variables (uncomment and modify as needed)
-database_name = "my-astra-db"
-keyspace_name = "mykeyspace"
-cloud_provider = "AWS"
-regions = ["us-east-1"]
-
-# Astra API Token (preferably set via environment variable ASTRA_API_TOKEN or use HashiCorp Vault)
-# astra_token = "your-astra-api-token"
+# Optional local fallback if you insist on file-based token; leave empty in Git.
+# astra_token   = "astra://token"
