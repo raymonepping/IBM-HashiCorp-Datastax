@@ -20,7 +20,7 @@ PCU groups are funded by Astra credits as follows:
 
 Prepare your CLI by defining the ASTRA API Token as such:
 ```bash
-export ASTRA_API_TOKEN="AstraCS:xyz"
+export ASTRA_API_TOKEN="YOUR API TOKEN"
 ```
 
 ### Retrieve existing PCU groups
