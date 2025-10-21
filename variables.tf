@@ -28,7 +28,7 @@ variable "regions" {
 }
 
 variable "astra_token" {
-  description = "Astra API token (can also be set via ASTRA_API_TOKEN environment variable)"
+  description = "Astra API token (can also be set via ASTRA_API_TOKEN environment variable) or ideally through HashiCorp Vault"
   type        = string
   default     = null
   sensitive   = true

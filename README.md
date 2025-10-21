@@ -178,7 +178,7 @@ After successful deployment, Terraform will output:
 - `database_graphql_url`: GraphQL URL for the database
 
 Example:
-```json
+```sh
 database_cloud_provider = "AWS"
 database_cqlsh_url = "https://xyz-b7af-489a-83b2-99b114edfc8e-us-east-1.apps.astra.datastax.com/cqlsh"
 database_data_endpoint_url = "https://xyz-b7af-489a-83b2-99b114edfc8e-us-east-1.apps.astra.datastax.com/api/rest"
