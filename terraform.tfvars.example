@@ -1,7 +1,0 @@
-# Example values for local testing. Do not commit real tokens.
-# Prefer ASTRA_API_TOKEN via env or HCP Variable Sets.
-
-database_name   = "intergallactic_db"
-keyspace_name   = "REPLACE_ME"
-cloud_provider  = "aws"
-regions         = ["eu-west-1"]
