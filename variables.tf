@@ -40,3 +40,15 @@ variable "regions" {
     error_message = "regions must include at least one region."
   }
 }
+
+variable "environment" {
+  description = "Deployment environment label"
+  type        = string
+  default     = "dev"
+}
+
+variable "region" {
+  description = "Optional single region value (not used, prefer regions list)"
+  type        = string
+  default     = ""
+}
