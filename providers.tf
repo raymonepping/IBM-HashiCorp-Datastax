@@ -1,4 +1,4 @@
 provider "astra" {
-  # Prefer environment ASTRA_API_TOKEN in CI/HCP; fallback to var.astra_token for local.
-  token = var.astra_token != "" ? var.astra_token : (try(env.ASTRA_API_TOKEN, ""))
+  # If astra_token is empty, let the provider pick up ASTRA_API_TOKEN from the environment.
+  token = var.astra_token == "" ? null : var.astra_token
 }

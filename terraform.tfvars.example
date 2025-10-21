@@ -5,6 +5,3 @@ database_name   = "intergallactic_db"
 keyspace_name   = "REPLACE_ME"
 cloud_provider  = "aws"
 regions         = ["eu-west-1"]
-
-# Optional local fallback if you insist on file-based token; leave empty in Git.
-# astra_token   = "astra://token"
