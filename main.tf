@@ -1,17 +1,7 @@
-terraform {
-  required_version = ">= 1.0"
-  required_providers {
-    astra = {
-      source  = "datastax/astra"
-      version = "~> 2.0"
-    }
-  }
-}
-
 provider "astra" {
   # Token can be set via environment variable ASTRA_API_TOKEN
   # or via the token argument below
-  # token = var.astra_token
+  token = var.astra_token
 }
 
 # DataStax Astra Database
@@ -19,33 +9,7 @@ resource "astra_database" "main" {
   name           = var.database_name
   keyspace       = var.keyspace_name
   cloud_provider = var.cloud_provider
-  region         = var.region
-  user_email     = var.user_email
-  
-  # One PCU configuration
-  capacity_units = 1
-  
-  # Optional: Enable serverless scaling
-  serverless_scaling {
-    min_capacity_units = 1
-    max_capacity_units = 1
-  }
-  
-  # Optional: Enable continuous backup
-  continuous_backup = var.enable_continuous_backup
-  
-  # Optional: Enable streaming
-  streaming = var.enable_streaming
-  
-  tags = var.tags
-}
-
-# Optional: Create a token for the database
-resource "astra_token" "main" {
-  count = var.create_token ? 1 : 0
-  
-  database_id = astra_database.main.id
-  roles       = var.token_roles
+  regions        = var.regions
 }
 
 # Output the database information
@@ -64,9 +28,9 @@ output "database_status" {
   value       = astra_database.main.status
 }
 
-output "database_region" {
-  description = "The region of the Astra database"
-  value       = astra_database.main.region
+output "database_regions" {
+  description = "The regions of the Astra database"
+  value       = astra_database.main.regions
 }
 
 output "database_keyspace" {
@@ -79,23 +43,27 @@ output "database_cloud_provider" {
   value       = astra_database.main.cloud_provider
 }
 
-output "database_capacity_units" {
-  description = "The capacity units of the Astra database"
-  value       = astra_database.main.capacity_units
-}
-
-output "database_org_id" {
+output "database_organization_id" {
   description = "The organization ID of the Astra database"
-  value       = astra_database.main.org_id
+  value       = astra_database.main.organization_id
 }
 
-output "database_secure_bundle_url" {
-  description = "The secure bundle URL for connecting to the database"
-  value       = astra_database.main.secure_bundle_url
+output "database_cqlsh_url" {
+  description = "The CQL shell URL for connecting to the database"
+  value       = astra_database.main.cqlsh_url
 }
 
-output "token" {
-  description = "The generated token for the database (if created)"
-  value       = var.create_token ? astra_token.main[0].token : null
-  sensitive   = true
+output "database_data_endpoint_url" {
+  description = "The data endpoint URL for connecting to the database"
+  value       = astra_database.main.data_endpoint_url
+}
+
+output "database_grafana_url" {
+  description = "The Grafana URL for monitoring the database"
+  value       = astra_database.main.grafana_url
+}
+
+output "database_graphql_url" {
+  description = "The GraphQL URL for the database"
+  value       = astra_database.main.graphql_url
 }

@@ -21,48 +21,10 @@ variable "cloud_provider" {
   }
 }
 
-variable "region" {
-  description = "Region for the database"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "user_email" {
-  description = "Email address of the user who will own the database"
-  type        = string
-}
-
-variable "enable_continuous_backup" {
-  description = "Enable continuous backup for the database"
-  type        = bool
-  default     = false
-}
-
-variable "enable_streaming" {
-  description = "Enable streaming for the database"
-  type        = bool
-  default     = false
-}
-
-variable "create_token" {
-  description = "Whether to create a token for the database"
-  type        = bool
-  default     = true
-}
-
-variable "token_roles" {
-  description = "Roles for the database token"
+variable "regions" {
+  description = "List of regions for the database"
   type        = list(string)
-  default     = ["database-user"]
-}
-
-variable "tags" {
-  description = "Tags to apply to the database"
-  type        = map(string)
-  default     = {
-    Environment = "development"
-    Project     = "terraform-astra"
-  }
+  default     = ["us-east-1"]
 }
 
 variable "astra_token" {

@@ -1,5 +1,9 @@
 # Modern Data Infrastructure with Astra DB through IaC
 
+This repository contains examples to:
+1. Set up and manage an Astra Database by the use of Terraform (this [README.md](./README.md))
+2. Manage Capacity Groups and their databases (see [README-scaling.md](./README-scaling.md))
+
 ## Business Value: Astra vs Self-Managed Cassandra
 
 ### Why Choose DataStax Astra Over Self-Managed Cassandra?
@@ -44,7 +48,7 @@ DataStax Astra provides significant business advantages over self-managed Apache
 - **Global Applications**: Multi-region deployments with low latency requirements
 - **Compliance Needs**: SOC 2, GDPR, HIPAA, and other regulatory requirements
 - **Resource Constraints**: Limited DevOps resources or expertise
-- **Rapid Scaling**: Applications with unpredictable or seasonal traffic patterns
+- **Automatic Scaling**: Applications with unpredictable or seasonal traffic patterns
 
 ## Additional Value: Infrastructure as Code
 
@@ -97,7 +101,7 @@ Combining Terraform with DataStax Astra provides exponential value through Infra
 
 ## Setup
 
-This Terraform configuration sets up a DataStax Astra database with 1 PCU (Processing Capacity Unit).
+This Terraform configuration sets up a DataStax Astra database through Infrastucture as Code.
 
 1. **Clone or download this configuration**
 
@@ -105,22 +109,18 @@ This Terraform configuration sets up a DataStax Astra database with 1 PCU (Proce
    ```bash
    cp terraform.tfvars.example terraform.tfvars
    ```
-   Edit `terraform.tfvars` and set your values, especially:
-   - `user_email`: Your email address
+   Edit `terraform.tfvars` and set your values:
    - `database_name`: Name for your database
    - `keyspace_name`: Name for your keyspace
    - `cloud_provider`: AWS, GCP, or AZURE
-   - `region`: Your preferred region
+   - `regions`: List of regions (e.g., ["us-east-1"])
 
-3. **Set up your API token** (choose one method):
+3. **Set up your API token**:
    - Set the `ASTRA_API_TOKEN` environment variable:
      ```bash
      export ASTRA_API_TOKEN="your-api-token-here"
      ```
-   - Or add your token to the `terraform.tfvars` file:
-     ```hcl
-     astra_token = "your-api-token-here"
-     ```
+     Ideally this would be done using HashiCorp Vault.
 
 ## Usage
 
@@ -147,10 +147,9 @@ This Terraform configuration sets up a DataStax Astra database with 1 PCU (Proce
 ## Configuration Details
 
 ### Database Configuration
-- **Capacity Units**: 1 PCU (fixed)
-- **Serverless Scaling**: Min/Max set to 1 PCU
-- **Continuous Backup**: Configurable (default: disabled)
-- **Streaming**: Configurable (default: disabled)
+- **Serverless Database**: Fully managed serverless Cassandra database
+- **Multi-region**: Deploy across multiple cloud regions
+- **Zero Management**: No infrastructure management required
 
 ### Supported Cloud Providers
 - AWS
@@ -169,13 +168,31 @@ After successful deployment, Terraform will output:
 - `database_id`: Unique identifier for your database
 - `database_name`: Name of the created database
 - `database_status`: Current status of the database
-- `database_region`: Region where the database is deployed
+- `database_regions`: Regions where the database is deployed
 - `database_keyspace`: Name of the keyspace
 - `database_cloud_provider`: Cloud provider used
-- `database_capacity_units`: Number of capacity units (1)
-- `database_org_id`: Organization ID
-- `database_secure_bundle_url`: URL to download the secure bundle for connections
-- `token`: Database token (if created)
+- `database_organization_id`: Organization ID
+- `database_cqlsh_url`: CQL shell URL for connecting to the database
+- `database_data_endpoint_url`: Data endpoint URL for application connections
+- `database_grafana_url`: Grafana URL for monitoring
+- `database_graphql_url`: GraphQL URL for the database
+
+Example:
+```json
+database_cloud_provider = "AWS"
+database_cqlsh_url = "https://xyz-b7af-489a-83b2-99b114edfc8e-us-east-1.apps.astra.datastax.com/cqlsh"
+database_data_endpoint_url = "https://xyz-b7af-489a-83b2-99b114edfc8e-us-east-1.apps.astra.datastax.com/api/rest"
+database_grafana_url = "https://xyz-b7af-489a-83b2-99b114edfc8e-us-east-1.dashboard.astra.datastax.com/d/cloud/dse-cluster-condensed?refresh=30s&orgId=1&kiosk=tv"
+database_graphql_url = "https://xyz-b7af-489a-83b2-99b114edfc8e-us-east-1.apps.astra.datastax.com/api/graphql"
+database_id = "xyz-b7af-489a-83b2-99b114edfc8e"
+database_keyspace = "mykeyspace"
+database_name = "my-astra-db"
+database_organization_id = "xyz-9d65-430a-bf68-3778e99f8a6c"
+database_regions = tolist([
+  "us-east-1",
+])
+database_status = "ACTIVE"
+```
 
 ## Cleanup
 
