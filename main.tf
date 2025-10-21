@@ -4,4 +4,8 @@ resource "astra_database" "main" {
   keyspace       = var.keyspace_name
   cloud_provider = lower(var.cloud_provider)
   regions        = var.regions
+
+  # Explicitly allow destroy if you want to clean up
+  deletion_protection = false
+    
 }
